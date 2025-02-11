@@ -1,50 +1,21 @@
-// Function to send the user's answer to the Flask app
-async function checkAnswer() {
-    const userAnswer = document.getElementById("answerInput").value;
-
-    // Send a POST request to the Flask app
-    const response = await fetch("http://127.0.0.1:5000/predict", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ word: userAnswer }),
-    });
-
-    // Parse the JSON response
-    const result = await response.json();
-
-    // Display the result on the webpage
-    const resultDiv = document.getElementById("result");
-    if (result.prediction === "Valid") {
-        resultDiv.innerText = "Correct! 🎉";
-        resultDiv.style.color = "green";
-    } else {
-        resultDiv.innerText = "Incorrect. Try again! ❌";
-        resultDiv.style.color = "red";
-    }
-
-    // Show the "Next Verb" button
-    document.getElementById("nextButton").style.display = "block";
-}
-
-// Function to load the next verb (you can customize this)
-function loadNextVerb() {
-    // Clear the input and result
-    document.getElementById("answerInput").value = "";
-    document.getElementById("result").innerText = "";
-
-    // Hide the "Next Verb" button
-    document.getElementById("nextButton").style.display = "none";
-
-    // Load a new question (you can customize this part)
-    const questionDiv = document.getElementById("question");
-    questionDiv.innerText = "New Swedish verb and form here"; // Replace with your logic
-}
-
-// Add event listeners
-document.getElementById("submitButton").addEventListener("click", checkAnswer);
-document.getElementById("nextButton").addEventListener("click", loadNextVerb);
-
-// Load the first question when the page loads
-window.onload = loadNextVerb;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Irregular Verbs Trainer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="container">
+    <h1>Irregular Verbs Trainer</h1>
+    <p>Type the correct English form for the given Swedish verb and form:</p>
+    <div id="question"></div>
+    <input type="text" id="answerInput" placeholder="Type your answer here">
+    <button id="submitButton">Submit</button>
+    <div id="result"></div>
+    <button id="nextButton" style="display: none;">Next Verb</button>
+</div>
+<script src="index.js"></script>
+</body>
+</html>
