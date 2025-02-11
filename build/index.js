@@ -34,16 +34,28 @@ function generateQuestion() {
 }
 
 // Function to check the user's answer
-function checkAnswer() {
+async function checkAnswer() {
     const userAnswer = document.getElementById("answerInput").value.trim().toLowerCase();
-    const correctAnswer = currentVerb[currentForm];
     const resultDiv = document.getElementById("result");
 
-    if (userAnswer === correctAnswer) {
+    // Send the user's answer to the Flask app
+    const response = await fetch("http://127.0.0.1:5000/predict", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ word: userAnswer, correctForm: currentVerb[currentForm] }),
+    });
+
+    // Parse the JSON response
+    const result = await response.json();
+
+    // Display the result
+    if (result.prediction === "Valid") {
         resultDiv.innerHTML = "Correct! 🎉";
         resultDiv.style.color = "green";
     } else {
-        resultDiv.innerHTML = `Incorrect. The correct answer is <strong>${correctAnswer}</strong>.`;
+        resultDiv.innerHTML = `Incorrect. The correct answer is <strong>${currentVerb[currentForm]}</strong>.`;
         resultDiv.style.color = "red";
     }
 
