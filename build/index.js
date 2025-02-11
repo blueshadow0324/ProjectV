@@ -31,6 +31,9 @@ function generateQuestion() {
     // Clear the answer input and result
     document.getElementById("answerInput").value = "";
     document.getElementById("result").innerHTML = "";
+
+    // Hide the "Next Verb" button
+    document.getElementById("nextButton").style.display = "none";
 }
 
 // Function to check the user's answer
@@ -38,7 +41,7 @@ async function checkAnswer() {
     const userAnswer = document.getElementById("answerInput").value.trim().toLowerCase();
     const resultDiv = document.getElementById("result");
 
-    // Send the user's answer to the Flask app
+    // Send the user's answer and correct form to the Flask app
     const response = await fetch("http://127.0.0.1:5000/predict", {
         method: "POST",
         headers: {
@@ -68,9 +71,6 @@ document.getElementById("submitButton").addEventListener("click", checkAnswer);
 
 // Event listener for the next button
 document.getElementById("nextButton").addEventListener("click", () => {
-    // Hide the "Next Verb" button
-    document.getElementById("nextButton").style.display = "none";
-
     // Generate a new question
     generateQuestion();
 });
