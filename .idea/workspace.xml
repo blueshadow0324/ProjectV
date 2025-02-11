@@ -65,7 +65,7 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="index.js" type="NodeJSConfigurationType" nameIsGenerated="true" path-to-js-file="index.js" working-dir="$PROJECT_DIR$/public">
+    <configuration name="index.js" type="NodeJSConfigurationType" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/build/index.js" working-dir="$PROJECT_DIR$/build">
       <method v="2" />
     </configuration>
   </component>
